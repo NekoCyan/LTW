@@ -1,0 +1,65 @@
+﻿@model IEnumerable<Product>
+
+<br />
+<div class="container">
+    <p>
+        <a asp-controller="Dashboard" asp-action="Index"
+            class="link-secondary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">
+            << Back to Dashboard</a>
+    </p>
+    <h3 id="products_count"></h3>
+    <table class="table">
+        <thead>
+            <th>Tên</th>
+            <th>Giá cả</th>
+            <th>Ảnh</th>
+            <th>Tùy chỉnh</th>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Name</td>
+                    <td>$@item.Price</td>
+                    @*<td><img src="@item.ImageUrl" alt="" width="100px" height="150px"></td>*@
+                    <td>
+                        <a asp-action="Upsert" asp-route-id="@item.Id">Edit</a> |
+                        <a href="#" class="text-danger" onclick="xoa(@item.Id, $(this))">Delete
+                            Directly</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <br />
+    <a asp-action="Upsert" class="btn btn-primary">Thêm mới</a>
+    <hr />
+    <div style="text-align: center;">
+        <a style="text-align: center;" asp-area="Customer" asp-controller="Home" asp-action="Index">Back to Customer</a>
+    </div>
+    <br />
+</div>
+
+<script>
+    function xoa(id, row) {
+        $.ajax({
+            url: `ProductManager/Delete/${id}`,
+            type: "POST",
+            success: function (data) {
+                $(row).closest('tr').remove();
+                toastr.success(`${data.message}`);
+                updateCount();
+            },
+        });
+    }
+
+    function updateCount() {
+        const tbody = document.querySelector('tbody');
+        const rows = tbody.querySelectorAll('tr');
+        const rowCount = rows.length;
+
+        const h3 = document.querySelector('#products_count');
+        h3.innerText = `Có tổng ${rowCount} sản phẩm.`;
+    }
+    updateCount();
+</script>
