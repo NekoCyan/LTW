@@ -1,6 +1,7 @@
 ﻿using LTW.Data;
 using LTW.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace LTW.Areas.Admin.Controllers
 {
@@ -15,7 +16,17 @@ namespace LTW.Areas.Admin.Controllers
 
         public IActionResult Index()
         {
-            IEnumerable<Product> products = _db.Products.ToList();
+            //IEnumerable<Product> products = _db.Products.ToList();
+            //return View(products);
+            IEnumerable<Product> products =
+                _db.Products.ToList().Select(p =>
+                {
+                    //p.ImageUrls = _db.ProductsImageUrls.Where(x => x.ProductId == p.Id).Select(pi => pi.ImageUrl).ToList();
+
+                    return p;
+                })
+                .ToList();
+
             return View(products);
         }
 
@@ -31,6 +42,8 @@ namespace LTW.Areas.Admin.Controllers
             else
             {
                 product = _db.Products.Find(Id);
+                //product.ImageUrls = _db.ProductsImageUrls.Where(x => x.ProductId == Id).Select(y => y.ImageUrl).ToList();
+
                 if (product == null)
                 {
                     return NotFound();

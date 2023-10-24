@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace LTW.Models
 {
@@ -11,5 +12,7 @@ namespace LTW.Models
         [Required]
         public double Price { get; set; }
         public string? Description { get; set; }
+
+        public List<ProductImageUrls> ImageUrls { get; set; }
     }
 }

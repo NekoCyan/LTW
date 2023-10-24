@@ -14,14 +14,52 @@
             <input asp-for="Price" type="number" class="form-control">
             <span asp-validation-for="Price" class="text-danger"></span>
         </div>
+        @*<div class="form-group">
+        <label asp-for="ImageUrls">Hình ảnh</label>
+        <input asp-for="ImageUrls" type="text" class="form-control">
+        <span asp-validation-for="ImageUrls" class="text-danger"></span>
+        </div>*@
         <div class="form-group">
-            @*<label asp-for="ImageUrl">Hình ảnh</label>
-            <input asp-for="ImageUrl" type="text" class="form-control">
-            <span asp-validation-for="ImageUrl" class="text-danger"></span>*@
+            @Html.Label("Image URLs")
+            <div id="imageUrlsContainer">
+                @if (Model.ImageUrls != null)
+                {
+                    for (int i = 0; i < Model.ImageUrls.Count; i++)
+                    {
+                        <div class="input-group mb-2">
+                            @Html.TextBoxFor(model => model.ImageUrls[i], new { @class = "form-control", placeholder = "Image URL" })
+                            <div class="input-group-append">
+                                <button class="btn btn-danger remove-box" type="button">X</button>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+            <button type="button" class="btn btn-primary" id="addTextBox">Add More</button>
         </div>
         <br />
-        <button type="submit" class="btn btn-primary">@(Model.Id == 0 ? "Thêm mới" : "Cập nhật")</button> <a
-            asp-action="Index" class="btn btn-secondary">Hủy</a>
+        <button type="submit" class="btn btn-primary">@(Model.Id == 0 ? "Thêm mới" : "Cập nhật")</button> <a asp-action="Index" class="btn btn-secondary">Hủy</a>
     </form>
 </div>
 <br />
+
+<script>
+    $(document).ready(function () {
+        // Add Text Box
+        $("#addTextBox").click(function () {
+            var textBoxHtml = `
+                        <div class="input-group mb-2">
+                            <input type="text" name="ImageUrls" class="form-control" placeholder="Image URL">
+                            <div class="input-group-append">
+                                <button class="btn btn-danger remove-box" type="button">X</button>
+                            </div>
+                        </div>`;
+            $("#imageUrlsContainer").append(textBoxHtml);
+        });
+
+        // Remove Text Box
+        $("#imageUrlsContainer").on("click", ".remove-box", function () {
+            $(this).closest('.input-group').remove();
+        });
+    });
+</script>

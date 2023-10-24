@@ -1,7 +1,5 @@
 ﻿using LTW.Data;
 using LTW.Models;
-using LTW.Data;
-using LTW.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
