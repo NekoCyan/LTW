@@ -2,6 +2,7 @@
 using LTW.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using NuGet.Protocol;
 using System.ComponentModel.DataAnnotations;
@@ -20,7 +21,7 @@ namespace LTW.Areas.Admin.Controllers
 
         public IActionResult Index()
         {
-            IEnumerable<Product> products = _db.Products.ToList().ConvertAll(x =>
+            IEnumerable<Product> products = _db.Products.Include("Category").ToList().ConvertAll(x =>
             {
                 x.ImageUrls = x.ImageUrl.Split(" ").ToList();
                 return x;
@@ -37,6 +38,12 @@ namespace LTW.Areas.Admin.Controllers
         {
             Product product;
 
+            ViewBag.CategoriesList = _db.Categories.ToList().ConvertAll(x => new SelectListItem()
+            {
+                Text = x.Name,
+                Value = x.Id.ToString(),
+            });
+
             if (Id == 0)
             {
                 product = new Product();
@@ -46,7 +53,7 @@ namespace LTW.Areas.Admin.Controllers
             }
             else
             {
-                product = _db.Products.FirstOrDefault(x => x.Id == Id);
+                product = _db.Products.Include("Category").FirstOrDefault(x => x.Id == Id);
 
                 if (product == null)
                 {

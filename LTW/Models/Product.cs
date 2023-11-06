@@ -1,6 +1,7 @@
 ﻿using static LTW.Utils.Utilities;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 
 namespace LTW.Models
 {
@@ -14,6 +15,11 @@ namespace LTW.Models
         public double Price { get; set; }
         public string? Description { get; set; }
         public string? ImageUrl { get; set; }
+
+        public int CategoryId { get; set; }
+        [ForeignKey(nameof(CategoryId))]
+        [ValidateNever]
+        public Category Category { get; set; }
 
         [NotMapped]
         [Required(ErrorMessage = "URL is required")]

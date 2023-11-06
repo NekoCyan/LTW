@@ -1,6 +1,7 @@
 ﻿using LTW.Data;
 using LTW.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Linq;
 
 namespace LTW.Areas.Customer.Controllers
@@ -29,7 +30,7 @@ namespace LTW.Areas.Customer.Controllers
         [HttpGet]
         public IActionResult Details(int Id)
         {
-            Product pd = _db.Products.FirstOrDefault(x => x.Id == Id);
+            Product pd = _db.Products.Include("Category").FirstOrDefault(x => x.Id == Id);
             if (pd == null)
             {
                 return NotFound();

@@ -9,10 +9,20 @@
             <input asp-for="Name" type="text" class="form-control">
             <span asp-validation-for="Name" class="text-danger"></span>
         </div>
-        <div class="form-group">
-            <label asp-for="Price">Giá</label>
-            <input asp-for="Price" type="number" class="form-control">
-            <span asp-validation-for="Price" class="text-danger"></span>
+        <div class="d-flex flex-row flex-direction-row">
+            <div class="form-floating col-md-6">
+                <label asp-for="Price">Giá</label>
+                <input asp-for="Price" type="number" class="form-control">
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+
+            <div class="form-floating col-md-6">
+                <label asp-for="CategoryId">Thể Loại</label>
+                <select asp-for="CategoryId" asp-items="@ViewBag.CategoriesList" class="form-control">
+                    <option disabled selected>Chọn Thể Loại</option>
+                </select>
+                <span asp-validation-for="CategoryId" class="text-danger"></span>
+            </div>
         </div>
         <div class="form-group textbox-container">
             <label asp-for="ImageUrls">Hình ảnh</label>
