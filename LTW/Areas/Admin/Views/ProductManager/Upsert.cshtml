@@ -14,28 +14,35 @@
             <input asp-for="Price" type="number" class="form-control">
             <span asp-validation-for="Price" class="text-danger"></span>
         </div>
-        @*<div class="form-group">
-        <label asp-for="ImageUrls">Hình ảnh</label>
-        <input asp-for="ImageUrls" type="text" class="form-control">
-        <span asp-validation-for="ImageUrls" class="text-danger"></span>
-        </div>*@
-        <div class="form-group">
-            @Html.Label("Image URLs")
-            <div id="imageUrlsContainer">
-                @if (Model.ImageUrls != null)
+        <div class="form-group textbox-container">
+            <label asp-for="ImageUrls">Hình ảnh</label>
+            <button type="button" class="btn btn-success" onclick="cloneInputField()">+</button>
+            <br />
+            <span asp-validation-for="ImageUrls" class="text-danger"></span>
+
+            @{
+                if (Model.ImageUrls.Count > 0)
                 {
                     for (int i = 0; i < Model.ImageUrls.Count; i++)
                     {
-                        <div class="input-group mb-2">
-                            @Html.TextBoxFor(model => model.ImageUrls[i], new { @class = "form-control", placeholder = "Image URL" })
+                        <div class="input-group mt-2">
+                            <input asp-for="ImageUrls" type="text" class="form-control" placeholder="Image URL" value="@Model.ImageUrls[i]" required>
                             <div class="input-group-append">
-                                <button class="btn btn-danger remove-box" type="button">X</button>
+                                <button type="button" class="btn btn-danger" onclick="removeCloneInputField(this)">-</button>
                             </div>
                         </div>
                     }
                 }
-            </div>
-            <button type="button" class="btn btn-primary" id="addTextBox">Add More</button>
+                else
+                {
+                    <div class="input-group mt-2">
+                        <input asp-for="ImageUrls" type="text" class="form-control" placeholder="Image URL" value="" required>
+                        <div class="input-group-append">
+                            <button type="button" class="btn btn-danger" onclick="removeCloneInputField(this)">-</button>
+                        </div>
+                    </div>
+                }
+            }
         </div>
         <br />
         <button type="submit" class="btn btn-primary">@(Model.Id == 0 ? "Thêm mới" : "Cập nhật")</button> <a asp-action="Index" class="btn btn-secondary">Hủy</a>
@@ -44,22 +51,28 @@
 <br />
 
 <script>
-    $(document).ready(function () {
-        // Add Text Box
-        $("#addTextBox").click(function () {
-            var textBoxHtml = `
-                        <div class="input-group mb-2">
-                            <input type="text" name="ImageUrls" class="form-control" placeholder="Image URL">
-                            <div class="input-group-append">
-                                <button class="btn btn-danger remove-box" type="button">X</button>
-                            </div>
-                        </div>`;
-            $("#imageUrlsContainer").append(textBoxHtml);
-        });
+    function cloneInputField() {
+        // Clone the existing input field
+        var $newInput = $('div.input-group')?.first().clone();
 
-        // Remove Text Box
-        $("#imageUrlsContainer").on("click", ".remove-box", function () {
-            $(this).closest('.input-group').remove();
-        });
-    });
+        // Clear the value of the cloned input field
+        $newInput.find('input[type="text"]').val('');
+
+        // Append the new input field to a container element
+        $('div.textbox-container').append($newInput);
+    }
+
+    function removeCloneInputField(button) {
+        var inputGroup = button.parentElement.parentElement;
+        if (inputGroup.parentElement.querySelectorAll('.input-group').length > 1) {
+            inputGroup.remove();
+        } else {
+            var input = inputGroup.querySelector('input');
+            input.value = ''; // Clear the value of the input
+        }
+    }
 </script>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

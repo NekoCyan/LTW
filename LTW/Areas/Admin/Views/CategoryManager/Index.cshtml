@@ -17,7 +17,7 @@
             {
                 <tr>
                     <td class="w-25">@item.Name</td>
-                    <td class="w-50">$@item.Description</td>
+                    <td class="w-50">@item.Description</td>
                     <td class="w-25">
                         <a asp-action="Upsert" asp-route-id="@item.Id">Edit</a> |
                         <a href="#" class="text-danger" onclick="xoa(@item.Id, $(this))">

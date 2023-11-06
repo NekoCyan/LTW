@@ -17,7 +17,12 @@ namespace LTW.Areas.Customer.Controllers
 
         public IActionResult Index()
         {
-            IEnumerable<Product> products = _db.Products.ToList();
+            IEnumerable<Product> products = _db.Products.ToList().ConvertAll(x =>
+            {
+                x.ImageUrls = x.ImageUrl.Split(" ").ToList();
+                return x;
+            });
+
             return View(products);
         }
 
@@ -29,6 +34,8 @@ namespace LTW.Areas.Customer.Controllers
             {
                 return NotFound();
             }
+
+            pd.ImageUrls = pd.ImageUrl.Split(" ").ToList();
 
             return View(pd);
         }

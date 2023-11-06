@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LTW.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231024063239_Product")]
+    [Migration("20231102182848_Product")]
     partial class Product
     {
         /// <inheritdoc />
@@ -55,6 +55,9 @@ namespace LTW.Data.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImageUrl")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")

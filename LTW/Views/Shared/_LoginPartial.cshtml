@@ -1,25 +1,17 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
+@using LTW.Extensions
 
 @if (SignInManager.IsSignedIn(User))
 {
-    @* <li class="nav-item">
-<a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello
-@User.Identity?.Name!</a>
-</li>
-<li class="nav-item">
-<form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index",
-"Home", new { area = "" })">
-<button type="submit" class="nav-link btn btn-link text-dark">Logout</button>
-</form>
-</li> *@
-
+    
     <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-haspopup="true"
        aria-expanded="true">
             <span class="nav-label">
-                @User.Identity?.Name <span class="caret"></span>
+                @this.GetUserDisplayName() <span class="caret"></span>
+            </span>
         </a>
         <ul class="dropdown-menu">
             @{
@@ -37,18 +29,12 @@
 }
 else
 {
-    @* <li class="nav-item">
-<a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">Register</a>
-</li>
-<li class="nav-item">
-<a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login">Login</a>
-</li> *@
-
     <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-haspopup="true"
        aria-expanded="true">
             <span class="nav-label">
                 Auth <span class="caret"></span>
+            </span>
         </a>
         <ul class="dropdown-menu">
             <li><a asp-area="Identity" asp-page="/Account/Login">Login</a></li>

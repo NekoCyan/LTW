@@ -1,10 +1,12 @@
 ﻿using LTW.Data;
 using LTW.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LTW.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = "Admin")]
     public class CategoryManagerController : Controller
     {
         private readonly ApplicationDbContext _db;
@@ -68,7 +70,7 @@ namespace LTW.Areas.Admin.Controllers
                 _db.SaveChanges();
                 return Json(new { success = true, message = "Xóa thành công." });
             }
-            return Json(new { success = false, message = "Không tìm thấy sản phầm cần xóa." });
+            return Json(new { success = false, message = "Không tìm thấy thể loại cần xóa." });
         }
     }
 }

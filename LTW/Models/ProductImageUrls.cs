@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace LTW.Models
 {
-    [Index(nameof(ImageUrl), IsUnique = true)]
+    //[Index(nameof(ImageUrl), IsUnique = true)]
     public class ProductImageUrls
     {
         [Key]
@@ -15,7 +15,7 @@ namespace LTW.Models
         public int ProductId { get; set; }
 
         [Required]
-        public string ImageUrl { get; set; }
+        public string ImageUrls { get; set; }
 
         [ForeignKey(nameof(ProductId))]
         [ValidateNever]

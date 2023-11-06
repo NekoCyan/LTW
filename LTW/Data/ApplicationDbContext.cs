@@ -19,10 +19,19 @@ namespace LTW.Data
 
         //    // Other model configuration
         //}
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            //modelBuilder.Entity<Product>()
+            //    .HasMany(p => p.ImageUrls)
+            //    .WithOne(i => i.Product)
+            //    .HasForeignKey(i => i.ProductId);
+        }
 
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Product> Products { get; set; }
-        public DbSet<ProductImageUrls> ProductsImageUrls { get; set; }
+        //public DbSet<ProductImageUrls> ProductsImageUrls { get; set; }
     }
 }

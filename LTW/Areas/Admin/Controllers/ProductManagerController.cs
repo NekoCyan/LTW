@@ -1,11 +1,15 @@
 ﻿using LTW.Data;
 using LTW.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using NuGet.Protocol;
+using System.ComponentModel.DataAnnotations;
 
 namespace LTW.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = "Admin")]
     public class ProductManagerController : Controller
     {
         private readonly ApplicationDbContext _db;
@@ -16,16 +20,14 @@ namespace LTW.Areas.Admin.Controllers
 
         public IActionResult Index()
         {
-            //IEnumerable<Product> products = _db.Products.ToList();
+            IEnumerable<Product> products = _db.Products.ToList().ConvertAll(x =>
+            {
+                x.ImageUrls = x.ImageUrl.Split(" ").ToList();
+                return x;
+            });
             //return View(products);
-            IEnumerable<Product> products =
-                _db.Products.ToList().Select(p =>
-                {
-                    //p.ImageUrls = _db.ProductsImageUrls.Where(x => x.ProductId == p.Id).Select(pi => pi.ImageUrl).ToList();
-
-                    return p;
-                })
-                .ToList();
+            //IEnumerable<Product> products =
+            //    _db.Products.Include(x => x.ImageUrls).ToList();
 
             return View(products);
         }
@@ -33,27 +35,45 @@ namespace LTW.Areas.Admin.Controllers
         [HttpGet]
         public IActionResult Upsert(int Id)
         {
-            Product product = new Product();
+            Product product;
 
             if (Id == 0)
             {
+                product = new Product();
+                product.ImageUrls = new List<string>();
+
                 return View(product);
             }
             else
             {
-                product = _db.Products.Find(Id);
-                //product.ImageUrls = _db.ProductsImageUrls.Where(x => x.ProductId == Id).Select(y => y.ImageUrl).ToList();
+                product = _db.Products.FirstOrDefault(x => x.Id == Id);
 
                 if (product == null)
                 {
                     return NotFound();
                 }
+
+                product.ImageUrls = product.ImageUrl.Split(" ").ToList();
+
                 return View(product);
             }
         }
         [HttpPost]
         public IActionResult Upsert(Product product)
         {
+            // Validate URLs.
+            var context = new ValidationContext(product);
+            var results = product.ValidateURL(context);
+            foreach (var result in results)
+            {
+                ModelState.AddModelError(result.MemberNames.First(), result.ErrorMessage);
+            }
+
+            if (product.ImageUrls != null)
+            {
+                product.ImageUrl = string.Join(" ", product.ImageUrls.Distinct());
+            }
+
             if (ModelState.IsValid)
             {
                 if (product.Id == 0)
@@ -64,10 +84,12 @@ namespace LTW.Areas.Admin.Controllers
                 {
                     _db.Products.Update(product);
                 }
+
                 _db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View();
+
+            return View(product);
         }
 
         [HttpPost]

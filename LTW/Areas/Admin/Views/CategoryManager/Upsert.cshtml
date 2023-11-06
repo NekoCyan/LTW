@@ -15,8 +15,11 @@
             <span asp-validation-for="Description" class="text-danger"></span>
         </div>
         <br />
-        <button type="submit" class="btn btn-primary">@(Model.Id == 0 ? "Thêm mới" : "Cập nhật")</button> <a
-            asp-action="Index" class="btn btn-secondary">Hủy</a>
+        <button type="submit" class="btn btn-primary">@(Model.Id == 0 ? "Thêm mới" : "Cập nhật")</button> <a asp-action="Index" class="btn btn-secondary">Hủy</a>
     </form>
 </div>
 <br />
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

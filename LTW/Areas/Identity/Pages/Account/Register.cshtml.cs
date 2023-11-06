@@ -105,7 +105,7 @@ namespace LTW.Areas.Identity.Pages.Account
                 var user = CreateUser();
                 // var user = new IdentityUser { UserName = Input.Email, Email = Input.Email };
                 user.Email = Input.Email;
-                user.UserName = Input.Name;
+                user.UserName = Input.Email;
                 user.Name = Input.Name;
                 user.Address = Input.Address;
 
