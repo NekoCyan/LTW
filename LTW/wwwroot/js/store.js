@@ -34,7 +34,7 @@ function AddToCartEventListeners() {
         });
     }
 }
-AddToCartEventListeners();
+//AddToCartEventListeners();
 
 function AddProduct(productId, specificQuantity = 1) {
     let products = GetAllLocalStorageProducts();

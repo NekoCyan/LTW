@@ -1,4 +1,4 @@
-@model Product
+@model Cart
 
 @{
     ViewData["Title"] = "Product Details";
@@ -9,10 +9,10 @@
         @*<img src="@Model.ImageUrl" class="img-fluid" alt="@Model.Name">*@
         <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
             <div class="carousel-inner">
-                @for (int i = 0; i < @Model.ImageUrls.Count; i++)
+                @for (int i = 0; i < @Model.Product.ImageUrls.Count; i++)
                 {
                     <div class="carousel-item @(i == 0 ? "active" : "")">
-                        <img style="height: 500px; width: 400px; margin: auto; object-fit:cover;" src="@Model.ImageUrls[i]" class="d-block" alt="">
+                        <img style="height: 500px; width: 400px; margin: auto; object-fit:cover;" src="@Model.Product.ImageUrls[i]" class="d-block" alt="">
                     </div>
                 }
             </div>
@@ -27,20 +27,20 @@
         </div>
     </div>
     <div class="col-md-7">
-        <h2>@Model.Name</h2>
-        <p>@Model.Description</p>
-        <p>Price: @Model.Price</p>
-        <p>Category: @Model.Category.Name</p>
+        <h2>@Model.Product.Name</h2>
+        <p>@Model.Product.Description</p>
+        <p>Price: @Model.Product.Price</p>
+        <p>Category: @Model.Product.Category.Name</p>
 
-        <a class="btn btn-primary addtocart" itemid="@Model.Id">Add To Cart</a>
+        <button type="submit" class="btn btn-primary" itemid="@Model.Id">Add To Cart</button>
         <br />
         <br />
         <div class="form-group d-flex flex-row">
-            <form method="post" asp-action="PrevProduct" asp-route-id="@Model.Id">
+            <form method="post" asp-action="PrevProduct" asp-route-id="@Model.ProductId">
                 <input type="submit" value="<< Previous Product" class="btn btn-secondary" />
             </form>
             &#160;
-            <form method="post" asp-action="NextProduct" asp-route-id="@Model.Id">
+            <form method="post" asp-action="NextProduct" asp-route-id="@Model.ProductId">
                 <input type="submit" value="Next Product >>" class="btn btn-secondary" />
             </form>
         </div>

@@ -359,8 +359,8 @@ a:focus {
 
   .box {
     position: relative;
-    margin-top: 25px;
-    padding: 15px;
+    margin-top: 20px;
+    padding: 10px;
     background-color: #f7f8f9;
     transition: all .3s;
     overflow: hidden;
@@ -603,91 +603,90 @@ a:focus {
 .client_section {
 
 
-  .box {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    margin-top: 55px;
-
-    .img_container {
-      width: 275px;
-      height: 275px;
-      border-radius: 100%;
-      display: flex;
-      justify-content: flex-end;
-      align-items: center;
-      background-color: #3c3c3c;
-
-      .img-box {
-        width: 215px;
-        height: 215px;
-        border-radius: 100%;
+    .box {
         display: flex;
-        justify-content: center;
+        flex-direction: column;
         align-items: center;
-        background-color: $white;
-        margin-right: -1px;
+        text-align: center;
+        margin-top: 55px;
 
-        .img_box-inner {
-          width: 150px;
-          height: 150px;
-          border-radius: 100%;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          overflow: hidden;
-          margin-right: 10px;
+        .img_container {
+            width: 275px;
+            height: 275px;
+            border-radius: 100%;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            background-color: #3c3c3c;
 
-          img {
-            width: 100%;
-          }
+            .img-box {
+                width: 215px;
+                height: 215px;
+                border-radius: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background-color: $white;
+                margin-right: -1px;
+
+                .img_box-inner {
+                    width: 150px;
+                    height: 150px;
+                    border-radius: 100%;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    overflow: hidden;
+                    margin-right: 10px;
+
+                    img {
+                        width: 100%;
+                    }
+                }
+            }
         }
-      }
+
+        .detail-box {
+            margin-top: 25px;
+
+            h5 {
+                font-size: 20px;
+                font-weight: 600;
+            }
+
+            h6 {
+                font-size: 15px;
+                color: #999998;
+            }
+        }
     }
 
-    .detail-box {
-      margin-top: 25px;
+    .carousel-control-prev,
+    .carousel-control-next {
+        top: 43%;
+        transform: translateY(-50%);
+        opacity: 1;
+        width: auto;
+        margin: 0 5px;
+        width: 50px;
+        height: 50px;
+        opacity: 1;
+        color: $white;
+        background-color: $primary1;
+        border-radius: 100%;
 
-      h5 {
-        font-size: 20px;
-        font-weight: 600;
-      }
-
-      h6 {
-        font-size: 15px;
-        color: #999998;
-      }
+        &:hover {
+            background-color: #212121;
+        }
     }
-  }
 
-  .carousel-control-prev,
-  .carousel-control-next {
-    top: 43%;
-    transform: translateY(-50%);
-    opacity: 1;
-    width: auto;
-    margin: 0 5px;
-    width: 50px;
-    height: 50px;
-    opacity: 1;
-    color: $white;
-    background-color: $primary1;
-    border-radius: 100%;
-
-    &:hover {
-      background-color: #212121;
+    .carousel-control-prev {
+        left: 25%;
     }
-  }
 
-  .carousel-control-prev {
-    left: 25%;
-  }
-
-  .carousel-control-next {
-    right: 25%;
-  }
-
+    .carousel-control-next {
+        right: 25%;
+    }
 }
 
 // end client section

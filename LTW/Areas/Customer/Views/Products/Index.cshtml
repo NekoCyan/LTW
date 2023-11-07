@@ -35,7 +35,7 @@
                                 <a class="option1 addtocart" itemid="@item.Id">
                                     Add To Cart
                                 </a>
-                                <a asp-action="Details" asp-route-id="@item.Id" class="option2">
+                                <a asp-action="Details" asp-route-productid="@item.Id" class="option2">
                                     Details
                                 </a>
                             </div>
@@ -44,11 +44,16 @@
                             <img src="@item.ImageUrls[0]" alt="" />
                         </div>
                         <div class="detail-box">
-                            <h5>
-                                @item.Name
-                            </h5>
+                            <h6>
+                                @item.Category.Name
+                            </h6>
                             <h6>
                                 $@item.Price
+                            </h6>
+                        </div>
+                        <div>
+                            <h6 class="text-center" style="font-weight: 600">
+                                @item.Name
                             </h6>
                         </div>
                     </div>
@@ -56,7 +61,7 @@
             }
         </div>
         <div class="btn-box">
-            <a asp-controller="Home" asp-action="Products">
+            <a asp-area="Customer" asp-controller="Products">
                 View All products
             </a>
         </div>

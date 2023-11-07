@@ -1,8 +1,11 @@
 ﻿using LTW.Data;
 using LTW.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
+using System.Runtime.InteropServices;
+using System.Security.Claims;
 
 namespace LTW.Areas.Customer.Controllers
 {
@@ -18,7 +21,7 @@ namespace LTW.Areas.Customer.Controllers
 
         public IActionResult Index()
         {
-            IEnumerable<Product> products = _db.Products.ToList().ConvertAll(x =>
+            IEnumerable<Product> products = _db.Products.Include("Category").ToList().ConvertAll(x =>
             {
                 x.ImageUrls = x.ImageUrl.Split(" ").ToList();
                 return x;
@@ -27,18 +30,60 @@ namespace LTW.Areas.Customer.Controllers
             return View(products);
         }
 
+        //[HttpGet]
+        //public IActionResult Details(int Id)
+        //{
+        //    Product pd = _db.Products.Include("Category").FirstOrDefault(x => x.Id == Id);
+        //    if (pd == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    pd.ImageUrls = pd.ImageUrl.Split(" ").ToList();
+
+        //    return View(pd);
+        //}
         [HttpGet]
-        public IActionResult Details(int Id)
+        public IActionResult Details(int productId)
         {
-            Product pd = _db.Products.Include("Category").FirstOrDefault(x => x.Id == Id);
-            if (pd == null)
+            if (productId == 0)
             {
                 return NotFound();
             }
 
-            pd.ImageUrls = pd.ImageUrl.Split(" ").ToList();
+            Cart cart = new Cart()
+            {
+                ProductId = productId,
+                Quantity = 1,
+                Product = _db.Products.Include("Category").FirstOrDefault(x => x.Id == productId),
+            };
 
-            return View(pd);
+            cart.Product.ImageUrls = cart.Product.ImageUrl.Split(" ").ToList();
+
+            return View(cart);
+        }
+
+        [HttpPost]
+        [Authorize]
+        public IActionResult Details(int productId)
+        {
+            if (ModelState.IsValid)
+            {
+                var identity = (ClaimsIdentity)User.Identity;
+                var claim = identity.FindFirst(ClaimTypes.NameIdentifier);
+                var cart = new Cart()
+                {
+                    ProductId = productId,
+                    Quantity = 1,
+                    Product = _db.Products.Include("Category").FirstOrDefault(x => x.Id == productId),
+                }
+                cart.ApplicationUserId = claim.Value;
+                _db.Carts.Add(cart);
+                _db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            return View(cart);
         }
 
         [HttpPost]
@@ -54,11 +99,11 @@ namespace LTW.Areas.Customer.Controllers
             int index = products.IndexOf(currentProduct);
             if (products.Count == index + 1)
             {
-                return RedirectToAction("Details", new { id = products.First().Id });
+                return RedirectToAction("Details", new { productId = products.First().Id });
             }
             else
             {
-                return RedirectToAction("Details", new { id = products[index + 1].Id });
+                return RedirectToAction("Details", new { productId = products[index + 1].Id });
             }
         }
 
@@ -75,11 +120,11 @@ namespace LTW.Areas.Customer.Controllers
             int index = products.IndexOf(currentProduct);
             if (index == 0)
             {
-                return RedirectToAction("Details", new { id = products.Last().Id });
+                return RedirectToAction("Details", new { productId = products.Last().Id });
             }
             else
             {
-                return RedirectToAction("Details", new { id = products[index - 1].Id });
+                return RedirectToAction("Details", new { productId = products[index - 1].Id });
             }
         }
     }
