@@ -23,7 +23,19 @@ namespace LTW.Models
 
         [NotMapped]
         [Required(ErrorMessage = "URL is required")]
-        public List<string> ImageUrls { get; set; }
+        public List<string> ImageUrls { get; set; } = new List<string>();
+
+        public void ImageParser()
+        {
+            if (ImageUrl != null)
+            {
+                ImageUrls = ImageUrl.Split(" ").ToList();
+            }
+            else if (ImageUrls != null)
+            {
+                ImageUrl = string.Join(" ", ImageUrls);
+            }
+        }
 
         public IEnumerable<ValidationResult> ValidateURL(ValidationContext context)
         {

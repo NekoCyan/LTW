@@ -23,12 +23,9 @@ namespace LTW.Areas.Admin.Controllers
         {
             IEnumerable<Product> products = _db.Products.Include("Category").ToList().ConvertAll(x =>
             {
-                x.ImageUrls = x.ImageUrl.Split(" ").ToList();
+                x.ImageParser();
                 return x;
             });
-            //return View(products);
-            //IEnumerable<Product> products =
-            //    _db.Products.Include(x => x.ImageUrls).ToList();
 
             return View(products);
         }
@@ -47,7 +44,6 @@ namespace LTW.Areas.Admin.Controllers
             if (Id == 0)
             {
                 product = new Product();
-                product.ImageUrls = new List<string>();
 
                 return View(product);
             }
@@ -60,7 +56,7 @@ namespace LTW.Areas.Admin.Controllers
                     return NotFound();
                 }
 
-                product.ImageUrls = product.ImageUrl.Split(" ").ToList();
+                product.ImageParser();
 
                 return View(product);
             }
@@ -76,7 +72,7 @@ namespace LTW.Areas.Admin.Controllers
                 ModelState.AddModelError(result.MemberNames.First(), result.ErrorMessage);
             }
 
-            if (product.ImageUrls != null)
+            if (product.ImageUrls != null && product.ImageUrls.Count > 0)
             {
                 product.ImageUrl = string.Join(" ", product.ImageUrls.Distinct());
             }

@@ -3,8 +3,6 @@ using LTW.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.Linq;
-using System.Runtime.InteropServices;
 using System.Security.Claims;
 
 namespace LTW.Areas.Customer.Controllers
@@ -23,7 +21,7 @@ namespace LTW.Areas.Customer.Controllers
         {
             IEnumerable<Product> products = _db.Products.Include("Category").ToList().ConvertAll(x =>
             {
-                x.ImageUrls = x.ImageUrl.Split(" ").ToList();
+                x.ImageParser();
                 return x;
             });
 
@@ -39,7 +37,7 @@ namespace LTW.Areas.Customer.Controllers
         //        return NotFound();
         //    }
 
-        //    pd.ImageUrls = pd.ImageUrl.Split(" ").ToList();
+        //    pd.ImageParser();
 
         //    return View(pd);
         //}
@@ -58,32 +56,44 @@ namespace LTW.Areas.Customer.Controllers
                 Product = _db.Products.Include("Category").FirstOrDefault(x => x.Id == productId),
             };
 
-            cart.Product.ImageUrls = cart.Product.ImageUrl.Split(" ").ToList();
+            cart.Product.ImageParser();
 
             return View(cart);
         }
 
         [HttpPost]
         [Authorize]
-        public IActionResult Details(int productId)
+        public IActionResult Details(Cart cart)
         {
+            var identity = (ClaimsIdentity)User.Identity;
+            var claim = identity.FindFirst(ClaimTypes.NameIdentifier);
+            cart.ApplicationUserId = claim.Value;
+
+            // This will used for re-validation when
+            // ApplicationUserId is new assigned here.
+            // The validation will be executed before
+            // send to this Controller so we need to re-validation.
+            ModelState.Clear();
+            TryValidateModel(cart);
+
             if (ModelState.IsValid)
             {
-                var identity = (ClaimsIdentity)User.Identity;
-                var claim = identity.FindFirst(ClaimTypes.NameIdentifier);
-                var cart = new Cart()
+                var productCheck = _db.Carts.FirstOrDefault(x => x.ApplicationUserId == cart.ApplicationUserId && x.ProductId == cart.ProductId);
+
+                if (productCheck == null)
                 {
-                    ProductId = productId,
-                    Quantity = 1,
-                    Product = _db.Products.Include("Category").FirstOrDefault(x => x.Id == productId),
+                    _db.Carts.Add(cart);
                 }
-                cart.ApplicationUserId = claim.Value;
-                _db.Carts.Add(cart);
+                else
+                {
+                    productCheck.Quantity += cart.Quantity;
+                }
+                
                 _db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(cart);
+            return Content("Error");
         }
 
         [HttpPost]
