@@ -27,12 +27,32 @@ namespace LTW.Areas.Customer.Controllers
             return View();
         }
 
-        public IActionResult Auth()
+        public IActionResult Shop()
+        {
+            return View();
+        }
+
+        public IActionResult Shop_Details()
+        {
+            return View();
+        }
+
+        public IActionResult Shopping_Cart()
+        {
+            return View();
+        }
+
+        public IActionResult Checkout()
         {
             return View();
         }
 
         public IActionResult Contact()
+        {
+            return View();
+        }
+
+        public IActionResult Auth()
         {
             return View();
         }
