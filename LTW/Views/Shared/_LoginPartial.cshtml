@@ -5,38 +5,27 @@
 
 @if (SignInManager.IsSignedIn(User))
 {
-    
-    <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-haspopup="true"
-       aria-expanded="true">
-            <span class="nav-label">
-                @this.GetUserDisplayName() <span class="caret"></span>
-            </span>
-        </a>
-        <ul class="dropdown-menu">
+    <li>
+        @this.GetUserDisplayName() <span class="arrow_carrot-down"></span>
+        <ul>
             @{
                 if (User.IsInRole("Admin"))
                 {
-                    <li><a asp-area="Admin" asp-controller="Dashboard" asp-action="Index">Trang Quản Trị</a></li>
+                    <li><a asp-area="Admin" asp-controller="Dashboard" asp-action="Index">Admin Dashboard</a></li>
                 }
             }
             <li>
                 <a asp-area="Identity" asp-page="/Account/Logout"
-               asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">Logout</a>
+                   asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">Logout</a>
             </li>
         </ul>
     </li>
 }
 else
 {
-    <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-haspopup="true"
-       aria-expanded="true">
-            <span class="nav-label">
-                Auth <span class="caret"></span>
-            </span>
-        </a>
-        <ul class="dropdown-menu">
+    <li>
+        Auth <span class="arrow_carrot-down"></span>
+        <ul>
             <li><a asp-area="Identity" asp-page="/Account/Login">Login</a></li>
             <li><a asp-area="Identity" asp-page="/Account/Register">Register</a></li>
         </ul>

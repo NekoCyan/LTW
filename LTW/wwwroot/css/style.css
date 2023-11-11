@@ -357,6 +357,7 @@ ol {
   transition: all, 0.3s;
 }
 .header__top__left ul li ul li {
+  display: block;
   list-style: none;
   font-size: 13px;
   color: #ffffff;
@@ -365,6 +366,13 @@ ol {
 }
 .header__top__left ul li ul li:after {
   display: none;
+}
+.header__top__left ul li ul li a {
+  display: block;
+  color: #ffffff;
+}
+.header__top__left ul li ul li a:hover {
+  color: #40e8ff;
 }
 .header__top__left ul li:after {
   position: absolute;

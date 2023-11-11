@@ -1,7 +1,9 @@
 ﻿@page
 @model RegisterModel
+@using LTW.Extensions
 @{
     ViewData["Title"] = "Register";
+    ViewBag.ExcludeNiceSelect = true;
 }
 
 <div class="container">
@@ -14,49 +16,49 @@
                 <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
 
                 <div class="d-flex flex-row flex-direction-row">
-                    <div class="form-floating col-md-6">
+                    <div class="form-floating col-md-6 mb-3">
                         <label asp-for="Input.Email">Email</label>
                         <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true"
-                            placeholder="name@example.com" />
+                               placeholder="name@example.com" />
                         <span asp-validation-for="Input.Email" class="text-danger"></span>
                     </div>
 
-                    <div class="form-floating col-md-6">
+                    <div class="form-floating col-md-6 mb-3">
                         <label asp-for="Input.Name">Name</label>
                         <input asp-for="Input.Name" class="form-control" autocomplete="fullname" aria-required="true"
-                            placeholder="Michael Jackson" />
+                               placeholder="Michael Jackson" />
                         <span asp-validation-for="Input.Name" class="text-danger"></span>
                     </div>
                 </div>
 
                 <div class="d-flex flex-row flex-direction-row">
-                    <div class="form-floating col-md-12">
+                    <div class="form-floating col-md-12 mb-3">
                         <label asp-for="Input.Address">Address</label>
                         <input asp-for="Input.Address" class="form-control" autocomplete="address" aria-required="true"
-                            placeholder="San Francisco, 444 De Haro Street, United States" />
+                               placeholder="San Francisco, 444 De Haro Street, United States" />
                         <span asp-validation-for="Input.Address" class="text-danger"></span>
                     </div>
                 </div>
 
                 <div class="d-flex flex-row flex-direction-row mb-3">
-                    <div class="form-floating col-md-6">
+                    <div class="form-floating col-md-6 mb-3">
                         <label asp-for="Input.Password">Password</label>
                         <input asp-for="Input.Password" class="form-control" autocomplete="new-password"
-                            aria-required="true" placeholder="Password" />
+                               aria-required="true" placeholder="Password" />
                         <span asp-validation-for="Input.Password" class="text-danger"></span>
                     </div>
 
-                    <div class="form-floating col-md-6">
+                    <div class="form-floating col-md-6 mb-3">
                         <label asp-for="Input.ConfirmPassword">Confirm Password</label>
                         <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password"
-                            aria-required="true" placeholder="Password" />
+                               aria-required="true" placeholder="Password" />
                         <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
                     </div>
                 </div>
 
                 <div class="d-flex flex-row flex-direction-row">
-                    <div class="form-floating mb-4 col-md-12">
-                        <select asp-for="Input.Role" asp-items="@Model.Input.RoleList" class="form-control">
+                    <div class="form-floating col-md-12 mb-4">
+                        <select asp-for="Input.Role" asp-items="@Model.Input.RoleList" class="form-control" style="width: 100%">
                             <option disabled selected>Chọn Role</option>
                         </select>
                     </div>
@@ -74,22 +76,25 @@
                     {
                         <div>
                             <p>
-                                There are no external authentication services configured. See this <a
-                                    href="https://go.microsoft.com/fwlink/?LinkID=532715">article
-                                    about setting up this ASP.NET application to support logging in via external services</a>.
+                                There are no external authentication services configured. See this <a href="https://go.microsoft.com/fwlink/?LinkID=532715">
+                                    article
+                                    about setting up this ASP.NET application to support logging in via external services
+                                </a>.
                             </p>
                         </div>
                     }
                     else
                     {
                         <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl"
-                            method="post" class="form-horizontal">
+                              method="post" class="form-horizontal">
                             <div>
                                 <p>
                                     @foreach (var provider in Model.ExternalLogins!)
                                     {
                                         <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name"
-                                            title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
+                                                title="Log in using your @provider.DisplayName account">
+                                            @provider.DisplayName
+                                        </button>
                                     }
                                 </p>
                             </div>

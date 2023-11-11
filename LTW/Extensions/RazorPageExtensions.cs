@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using LTW.Data;
 using Microsoft.AspNetCore.Mvc.Razor;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace LTW.Extensions
 {
@@ -22,6 +23,22 @@ namespace LTW.Extensions
 
             // Retrieve the display name if available
             return user?.Name ?? userName;
+        }
+
+        public static void ExcludeScripts(this RazorPage page, params string[] scripts)
+        {
+            page.ViewBag["ExcludedScripts"] = scripts.ToList();
+        }
+
+        public static void GetExcludedScripts(this RazorPage page)
+        {
+            if (page.ViewBag["ExcludedScripts"] == null)
+            {
+                page.ViewBag["ExcludedScripts"] = new List<string>();
+            } else
+            {
+                page.ViewBag["ExcludedScripts"] = page.ViewBag["ExcludedScripts"];
+            }
         }
     }
 }

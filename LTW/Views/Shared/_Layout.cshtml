@@ -45,7 +45,7 @@
                 <a href="#"><img src="~/images/icon/heart.png" alt=""></a>
             </div>
             <div class="offcanvas__cart__item">
-                <a href="#"><img src="~/images/icon/cart.png" alt=""> <span>0</span></a>
+                <a asp-area="Customer" asp-controller="Home" asp-action="Shopping_Cart"><img src="~/images/icon/cart.png" alt=""> <span>0</span></a>
                 <div class="cart__price">Cart: <span>$0.00</span></div>
             </div>
         </div>
@@ -58,18 +58,18 @@
                 <li>
                     USD <span class="arrow_carrot-down"></span>
                     <ul>
-                        <li>EUR</li>
+                        <li>USD</li>
                         <li>USD</li>
                     </ul>
                 </li>
                 <li>
                     ENG <span class="arrow_carrot-down"></span>
                     <ul>
-                        <li>Spanish</li>
+                        <li>ENG</li>
                         <li>ENG</li>
                     </ul>
                 </li>
-                <li><a href="#">Sign in</a> <span class="arrow_carrot-down"></span></li>
+                <partial name="_LoginPartial" />
             </ul>
         </div>
     </div>
@@ -97,7 +97,7 @@
                                             <li>ENG</li>
                                         </ul>
                                     </li>
-                                    <li><a href="#">Sign in</a> <span class="arrow_carrot-down"></span></li>
+                                    <partial name="_LoginPartial" />
                                 </ul>
                             </div>
                             <div class="header__logo">
@@ -240,7 +240,12 @@
     <!-- Js Plugins -->
     <script src="~/js/jquery-3.3.1.min.js"></script>
     <script src="~/js/bootstrap.min.js"></script>
-    <script src="~/js/jquery.nice-select.min.js"></script>
+    @{
+        if (!(ViewBag.ExcludeNiceSelect == true))
+        {
+            <script src="~/js/jquery.nice-select.min.js"></script>
+        }
+    }
     <script src="~/js/jquery.barfiller.js"></script>
     <script src="~/js/jquery.magnific-popup.min.js"></script>
     <script src="~/js/jquery.slicknav.js"></script>
