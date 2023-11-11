@@ -37,11 +37,6 @@ namespace LTW.Areas.Customer.Controllers
             return View();
         }
 
-        public IActionResult Testimonial()
-        {
-            return View();
-        }
-
         public IActionResult Cart()
         {
             return View();
