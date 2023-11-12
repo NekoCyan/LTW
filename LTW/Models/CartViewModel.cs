@@ -7,6 +7,7 @@ namespace LTW.Models
     public class CartViewModel
     {
         public IEnumerable<Cart> Carts { get; set; }
-        public double TotalPrice { get; set; }
+        //public double TotalPrice { get; set; }
+        public Invoice Invoices { get; set; }
     }
 }
