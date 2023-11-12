@@ -34,3 +34,8 @@ $(function () {
         $(".forgot").toggleClass("forgot-fade");
     });
 });
+
+function FormatCurrency(number) {
+    // return $ (dollar currency with fixed 2 numbers)
+    return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(number);
+}

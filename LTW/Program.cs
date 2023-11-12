@@ -1,3 +1,4 @@
+using LTW;
 using LTW.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -26,6 +27,9 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>(o =>
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
+
+//builder.Services.AddSingleton<IStartup>(new Startup());
+//builder.Services.AddHttpClient();
 
 var app = builder.Build();
 

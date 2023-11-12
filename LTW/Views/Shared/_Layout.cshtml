@@ -48,7 +48,7 @@
                 <a asp-area="Customer" asp-controller="Home" asp-action="Shopping_Cart">
                     <img src="~/images/icon/cart.png" alt=""> <span>0</span>
                 </a>
-                <div class="cart__price">Cart: <span>$0.00</span></div>
+                <partial name="_TotalPricePartial" />
             </div>
         </div>
         <div class="offcanvas__logo">
@@ -88,14 +88,14 @@
                                     <li>
                                         USD <span class="arrow_carrot-down"></span>
                                         <ul>
-                                            <li>EUR</li>
+                                            <li>USD</li>
                                             <li>USD</li>
                                         </ul>
                                     </li>
                                     <li>
                                         ENG <span class="arrow_carrot-down"></span>
                                         <ul>
-                                            <li>Spanish</li>
+                                            <li>ENG</li>
                                             <li>ENG</li>
                                         </ul>
                                     </li>
@@ -116,7 +116,7 @@
                                     <a asp-area="Customer" asp-controller="Home" asp-action="Shopping_Cart">
                                         <img src="~/images/icon/cart.png" alt=""> <span>0</span>
                                     </a>
-                                    <div class="cart__price">Cart: <span>$0.00</span></div>
+                                    <partial name="_TotalPricePartial" />
                                 </div>
                             </div>
                         </div>
@@ -258,7 +258,7 @@
     @{
         if (!(ViewBag.ExcludeNiceSelect == true))
         {
-            <script src="~/js/jquery.nice-select.min.js"></script>
+                <script src="~/js/jquery.nice-select.min.js"></script>
         }
     }
     <script src="~/js/jquery.barfiller.js"></script>
@@ -268,6 +268,28 @@
     <script src="~/js/jquery.nicescroll.min.js"></script>
     <script src="~/js/main.js"></script>
     <script src="~/js/site.js"></script>
+    @{
+        if (!string.IsNullOrEmpty(User.Identity.Name))
+        {
+            <script>
+                $(function () {
+                    $.ajax({
+                        url: '@Url.Action("TotalPrice", "Carts", new { area = "Customer" })',
+                        type: 'GET',
+                        success: function ({ data }) {
+                            // Handle the response data as needed
+                            $('.cart__price span').each(function () {
+                                $(this).text(FormatCurrency(data));
+                            });
+                        },
+                        error: function (error) {
+                            console.error('Error:', error);
+                        }
+                    });
+                });        
+            </script>        
+        }
+    }
 
     @await RenderSectionAsync("Scripts", required: false)
 </body>
