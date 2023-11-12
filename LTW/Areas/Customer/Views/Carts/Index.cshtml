@@ -55,7 +55,7 @@
                                         <div class="quantity">
                                             <div class="pro-qty2">
                                                 <a asp-action="Giam" asp-route-giohangId="@item.Id" style="dec qtybtn" type="button">-</a>
-                                                <input asp-for="@item.Quantity" type="text" min="1" />
+                                                <input asp-for="@item.Quantity" type="text" min="1" disabled/>
                                                 <span asp-validation-for="@item.Quantity" class="text-danger"></span>
                                                 <a asp-action="Tang" asp-route-giohangId="@item.Id" style="inc qtybtn" type="button">+</a>
                                             </div>
@@ -93,7 +93,7 @@
                 <div class="cart__discount">
                     <h6>Discount codes</h6>
                     <form action="#">
-                        <input type="text" placeholder="Coupon code">
+                        <input type="text" placeholder="Coupon code" value="Not available..." disabled>
                         <button type="submit">Apply</button>
                     </form>
                 </div>
@@ -103,7 +103,7 @@
                         <li>Subtotal <span>$ @Model.Invoices.Total</span></li>
                         <li>Total <span>$ @Model.Invoices.Total</span></li>
                     </ul>
-                    <a href="#" class="primary-btn">Proceed to checkout</a>
+                    <a asp-area="Customer" asp-controller="Carts" asp-action="Checkout" class="primary-btn">Proceed to checkout</a>
                 </div>
             </div>
         </div>

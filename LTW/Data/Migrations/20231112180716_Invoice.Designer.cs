@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LTW.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231112082203_Invoice")]
+    [Migration("20231112180716_Invoice")]
     partial class Invoice
     {
         /// <inheritdoc />
@@ -82,10 +82,6 @@ namespace LTW.Data.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Address")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("AppicationUserId")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 

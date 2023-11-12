@@ -8,7 +8,7 @@ namespace LTW.Models
     {
         [Key]
         public int Id { get; set; }
-        public string AppicationUserId { get; set; }
+        public string ApplicationUserId { get; set; }
         [ForeignKey("ApplicationUserId")]
         [ValidateNever]
         public ApplicationUser ApplicationUser { get; set; }
