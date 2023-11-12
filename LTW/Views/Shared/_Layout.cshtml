@@ -11,9 +11,9 @@
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&display=swap"
-        rel="stylesheet">
+          rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap"
-        rel="stylesheet">
+          rel="stylesheet">
 
     <!-- Custom styles for this template -->
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
@@ -45,8 +45,9 @@
                 <a href="#"><img src="~/images/icon/heart.png" alt=""></a>
             </div>
             <div class="offcanvas__cart__item">
-                <a asp-area="Customer" asp-controller="Home" asp-action="Shopping_Cart"><img
-                        src="~/images/icon/cart.png" alt=""> <span>0</span></a>
+                <a asp-area="Customer" asp-controller="Home" asp-action="Shopping_Cart">
+                    <img src="~/images/icon/cart.png" alt=""> <span>0</span>
+                </a>
                 <div class="cart__price">Cart: <span>$0.00</span></div>
             </div>
         </div>
@@ -102,8 +103,9 @@
                                 </ul>
                             </div>
                             <div class="header__logo">
-                                <a asp-area="Customer" asp-controller="Home" asp-action="Index"><img
-                                        src="~/images/logo_.png" alt=""></a>
+                                <a asp-area="Customer" asp-controller="Home" asp-action="Index">
+                                    <img src="~/images/logo_.png" alt="">
+                                </a>
                             </div>
                             <div class="header__top__right">
                                 <div class="header__top__right__links">
@@ -111,8 +113,9 @@
                                     <a href="#"><img src="~/images/icon/heart.png" alt=""></a>
                                 </div>
                                 <div class="header__top__right__cart">
-                                    <a asp-area="Customer" asp-controller="Home" asp-action="Shopping_Cart"><img
-                                            src="~/images/icon/cart.png" alt=""> <span>0</span></a>
+                                    <a asp-area="Customer" asp-controller="Home" asp-action="Shopping_Cart">
+                                        <img src="~/images/icon/cart.png" alt=""> <span>0</span>
+                                    </a>
                                     <div class="cart__price">Cart: <span>$0.00</span></div>
                                 </div>
                             </div>
@@ -127,18 +130,22 @@
                 <div class="col-lg-12">
                     <nav class="header__menu mobile-menu">
                         <ul>
-                            <li class="active"><a asp-area="Customer" asp-controller="Home" asp-action="Index">Home</a>
+                            <li class="active">
+                                <a asp-area="Customer" asp-controller="Home" asp-action="Index">Home</a>
                             </li>
                             <li><a asp-area="Customer" asp-controller="Home" asp-action="About">About</a></li>
                             <li><a asp-area="Customer" asp-controller="Products" asp-action="Index">Shop</a></li>
                             <li>
                                 <a href="#">Pages</a>
                                 <ul class="dropdown">
-                                    <li><a asp-area="Customer" asp-controller="Home" asp-action="Shop_Details">Shop
-                                            Details</a></li>
-                                    <li><a asp-area="Customer" asp-controller="Home" asp-action="Shopping_Cart">Shoping
-                                            Cart</a></li>
-                                    <li><a asp-area="Customer" asp-controller="Home" asp-action="Checkout">Check Out</a>
+                                    <li>
+                                        <a asp-area="Customer" asp-controller="Home" asp-action="Shopping_Cart">
+                                            Shoping
+                                            Cart
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a asp-area="Customer" asp-controller="Home" asp-action="Checkout">Check Out</a>
                                     </li>
                                 </ul>
                             </li>
@@ -243,6 +250,9 @@
     </div>
     <!-- Search End -->
     <!-- Js Plugins -->
+    <!-- Toast -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+
     <script src="~/js/jquery-3.3.1.min.js"></script>
     <script src="~/js/bootstrap.min.js"></script>
     @{
@@ -258,6 +268,7 @@
     <script src="~/js/jquery.nicescroll.min.js"></script>
     <script src="~/js/main.js"></script>
     <script src="~/js/site.js"></script>
+
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 

@@ -62,7 +62,7 @@
                             </div>
                         </div>
                         <div class="product__item__text">
-                            <h6><a asp-action="Details" asp-route-productid="@item.Id">Dozen Cupcakes</a></h6>
+                            <h6><a asp-action="Details" asp-route-productid="@item.Id">@item.Name</a></h6>
                             <div class="product__item__price">$@item.Price</div>
                             <div class="cart_add">
                                 <a asp-action="Details" asp-route-productid="@item.Id">Details</a>
