@@ -14,7 +14,17 @@ namespace LTW.ViewComponents
 
         public IViewComponentResult Invoke()
         {
-            var categories = _db.Categories.ToList().ConvertAll(c =>
+            var categories = new List<SelectListItem>()
+            {
+                new SelectListItem()
+                {
+                    Text = "All Categories",
+                    Value = "0",
+                    Selected = true,
+                }
+            };
+
+            categories.AddRange(_db.Categories.ToList().ConvertAll(c =>
             {
                 return new SelectListItem()
                 {
@@ -22,7 +32,7 @@ namespace LTW.ViewComponents
                     Value = c.Id.ToString(),
                     Selected = false,
                 };
-            });
+            }));
 
             return View(categories);
         }

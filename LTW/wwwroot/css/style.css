@@ -1420,7 +1420,7 @@ ol {
   border: none;
   background: transparent;
   display: inline-block;
-  width: 25%;
+  width: 30%;
   height: 44px;
   line-height: 44px;
   padding-left: 30px;
@@ -1453,12 +1453,12 @@ ol {
   color: #000000;
 }
 .shop__option__search form input {
-  width: 75%;
+  width: 70%;
   height: 100%;
   border: none;
   font-size: 16px;
   color: #000000;
-  padding-left: 30px;
+  padding-left: 25px;
 }
 .shop__option__search form input::-webkit-input-placeholder {
   color: #000000;
