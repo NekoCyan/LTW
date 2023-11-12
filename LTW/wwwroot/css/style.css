@@ -1828,13 +1828,31 @@ ol {
   cursor: pointer;
   font-weight: 500;
 }
+.shopping__cart__table table tbody tr td.quantity__item .quantity .pro-qty2 {
+  width: 90px;
+}
+.shopping__cart__table table tbody tr td.quantity__item .quantity .pro-qty2 input {
+  width: 65px;
+  border: none;
+  text-align: center;
+  color: #111111;
+  font-size: 16px;
+  font-weight: 500;
+}
+.shopping__cart__table table tbody tr td.quantity__item .quantity .pro-qty2 .qtybtn {
+  font-size: 16px;
+  color: #888888;
+  width: 10px;
+  cursor: pointer;
+  font-weight: 500;
+}
 .shopping__cart__table table tbody tr td.cart__price {
   color: #111111;
   font-size: 16px;
   font-weight: 600;
   width: 140px;
 }
-.shopping__cart__table table tbody tr td.cart__close span {
+.shopping__cart__table table tbody tr td.cart__close a {
   font-size: 18px;
   display: inline-block;
   color: #111111;

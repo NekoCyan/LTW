@@ -42,10 +42,10 @@
         <div class="offcanvas__cart">
             <div class="offcanvas__cart__links">
                 <a href="#" class="search-switch"><img src="~/images/icon/search.png" alt=""></a>
-                <a href="#"><img src="~/images/icon/heart.png" alt=""></a>
+                @* <a href="#"><img src="~/images/icon/heart.png" alt=""></a> *@
             </div>
             <div class="offcanvas__cart__item">
-                <a asp-area="Customer" asp-controller="Home" asp-action="Shopping_Cart">
+                <a asp-area="Customer" asp-controller="Carts" asp-action="Index">
                     <img src="~/images/icon/cart.png" alt=""> <span>0</span>
                 </a>
                 <partial name="_TotalPricePartial" />
@@ -110,10 +110,10 @@
                             <div class="header__top__right">
                                 <div class="header__top__right__links">
                                     <a href="#" class="search-switch"><img src="~/images/icon/search.png" alt=""></a>
-                                    <a href="#"><img src="~/images/icon/heart.png" alt=""></a>
+                                    @* <a href="#"><img src="~/images/icon/heart.png" alt=""></a> *@
                                 </div>
                                 <div class="header__top__right__cart">
-                                    <a asp-area="Customer" asp-controller="Home" asp-action="Shopping_Cart">
+                                    <a asp-area="Customer" asp-controller="Carts" asp-action="Index">
                                         <img src="~/images/icon/cart.png" alt=""> <span>0</span>
                                     </a>
                                     <partial name="_TotalPricePartial" />
@@ -139,10 +139,7 @@
                                 <a href="#">Pages</a>
                                 <ul class="dropdown">
                                     <li>
-                                        <a asp-area="Customer" asp-controller="Home" asp-action="Shopping_Cart">
-                                            Shoping
-                                            Cart
-                                        </a>
+                                        <a asp-area="Customer" asp-controller="Carts" asp-action="Index">Cart</a>
                                     </li>
                                     <li>
                                         <a asp-area="Customer" asp-controller="Home" asp-action="Checkout">Check Out</a>

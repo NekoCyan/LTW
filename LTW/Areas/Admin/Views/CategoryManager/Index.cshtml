@@ -41,12 +41,12 @@
 <script>
     function xoa(id, row) {
         $.ajax({
-            url: `CategoryManager/Delete/${id}`,
+            url: `@Url.Action("Delete", "CategoryManager", new { area = "Admin" })/${id}`,
             type: "POST",
             success: function (data) {
                 $(row).closest('tr').remove();
-                toastr.success(`${data.message}`);
                 updateCount();
+                toastr.success(`${data.message}`);
             },
         });
     }

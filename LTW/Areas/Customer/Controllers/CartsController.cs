@@ -74,6 +74,8 @@ namespace LTW.Areas.Customer.Controllers
 
             return View(cartModel);
         }
+
+        [HttpGet]
         public IActionResult Giam(int giohangId)
         {
             var cart = _db.Carts.FirstOrDefault(gh => gh.Id == giohangId);
@@ -88,6 +90,8 @@ namespace LTW.Areas.Customer.Controllers
             }
             return RedirectToAction("Index");
         }
+
+        [HttpGet]
         public IActionResult Tang(int giohangId)
         {
             var cart = _db.Carts.FirstOrDefault(gh => gh.Id == giohangId);
@@ -98,6 +102,8 @@ namespace LTW.Areas.Customer.Controllers
             }
             return RedirectToAction("Index");
         }
+
+        [HttpGet]
         public IActionResult Xoa(int giohangId)
         {
             var cart = _db.Carts.FirstOrDefault(gh => gh.Id == giohangId);
