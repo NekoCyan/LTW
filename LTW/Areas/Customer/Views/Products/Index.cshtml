@@ -1,67 +1,94 @@
 ﻿@model IEnumerable<Product>
 
 @{
-    ViewData["Title"] = "Products";
+    ViewData["Title"] = "Shop";
 }
 
-<!-- inner page section -->
-<section class="inner_page_head">
-    <div class="container_fuild">
+<!-- Breadcrumb Begin -->
+<div class="breadcrumb-option">
+    <div class="container">
         <div class="row">
-            <div class="col-md-12">
-                <div class="full">
-                    <h3>Product Grid</h3>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="breadcrumb__text">
+                    <h2>Shop</h2>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="breadcrumb__links">
+                    <a asp-area="Customer" asp-controller="Home" asp-action="Index">Home</a>
+                    <span>Shop</span>
                 </div>
             </div>
         </div>
     </div>
-</section>
-<!-- end inner page section -->
-<!-- product section -->
-<section class="product_section layout_padding">
+</div>
+<!-- Breadcrumb End -->
+<!-- Shop Section Begin -->
+<section class="shop spad">
     <div class="container">
-        <div class="heading_container heading_center">
-            <h2>
-                Our <span>products</span>
-            </h2>
+        <div class="shop__option">
+            <div class="row">
+                <div class="col-lg-7 col-md-7">
+                    <div class="shop__option__search">
+                        <form action="#">
+                            <vc:category></vc:category>
+                            <input type="text" placeholder="Search">
+                            <button type="submit"><i class="fa fa-search"></i></button>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-lg-5 col-md-5">
+                    <div class="shop__option__right">
+                        <select>
+                            <option value="">Default sorting</option>
+                            <option value="">A to Z</option>
+                            <option value="">1 - 8</option>
+                            <option value="">Name</option>
+                        </select>
+                        <a href="#"><i class="fa fa-list"></i></a>
+                        <a href="#"><i class="fa fa-reorder"></i></a>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="row" id="allproducts">
-            @foreach (var item in Model)
+        <div class="row">
+            @foreach (var item in @Model)
             {
-                <div class="col-sm-6 col-md-4 col-lg-3">
-                    <div class="box">
-                        <div class="option_container">
-                            <div class="options">
-                                <a asp-action="Details" asp-route-productid="@item.Id" class="option2">
-                                    Details
-                                </a>
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="product__item">
+                        <div class="product__item__pic set-bg" data-setbg="@item.ImageUrls[0]">
+                            <div class="product__label">
+                                <span>@item.Category.Name</span>
                             </div>
                         </div>
-                        <div class="img-box">
-                            <img src="@item.ImageUrls[0]" alt="" />
-                        </div>
-                        <div class="detail-box">
-                            <h6>
-                                @item.Category.Name
-                            </h6>
-                            <h6>
-                                $@item.Price
-                            </h6>
-                        </div>
-                        <div>
-                            <h6 class="text-center" style="font-weight: 600">
-                                @item.Name
-                            </h6>
+                        <div class="product__item__text">
+                            <h6><a asp-action="Details" asp-route-productid="@item.Id">Dozen Cupcakes</a></h6>
+                            <div class="product__item__price">$@item.Price</div>
+                            <div class="cart_add">
+                                <a asp-action="Details" asp-route-productid="@item.Id">Details</a>
+                            </div>
                         </div>
                     </div>
                 </div>
             }
         </div>
-        <div class="btn-box">
-            <a asp-area="Customer" asp-controller="Products">
-                View All products
-            </a>
+        <div class="shop__last__option">
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="shop__pagination">
+                        <a href="#">1</a>
+                        <a href="#">2</a>
+                        <a href="#">3</a>
+                        <a href="#"><span class="arrow_carrot-right"></span></a>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="shop__last__text">
+                        <p>Showing 1-9 of 10 results</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </section>
-<!-- end product section -->
+<!-- Shop Section End -->

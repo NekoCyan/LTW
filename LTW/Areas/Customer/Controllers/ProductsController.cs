@@ -27,20 +27,7 @@ namespace LTW.Areas.Customer.Controllers
 
             return View(products);
         }
-
-        //[HttpGet]
-        //public IActionResult Details(int Id)
-        //{
-        //    Product pd = _db.Products.Include("Category").FirstOrDefault(x => x.Id == Id);
-        //    if (pd == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    pd.ImageParser();
-
-        //    return View(pd);
-        //}
+        
         [HttpGet]
         public IActionResult Details(int productId)
         {

@@ -49,7 +49,14 @@ namespace LTW.Models
                     }
                     else if (!IsValidUrl(url))
                     {
-                        yield return new ValidationResult("Invalid URL", new[] { nameof(ImageUrls) });
+                        if (url.StartsWith("/images/"))
+                        {
+                            continue;
+                        }
+                        else
+                        {
+                            yield return new ValidationResult("Invalid URL", new[] { nameof(ImageUrls) });
+                        }
                     }
                 }
             }
