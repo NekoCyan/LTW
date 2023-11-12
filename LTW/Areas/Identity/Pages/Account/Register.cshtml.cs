@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
+using LTW.Data;
 using LTW.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
@@ -27,19 +28,22 @@ namespace LTW.Areas.Identity.Pages.Account
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
         public readonly RoleManager<IdentityRole> _roleManager;
+        public readonly ApplicationDbContext db;
 
         public RegisterModel(
             UserManager<IdentityUser> userManager,
             SignInManager<IdentityUser> signInManager,
             ILogger<RegisterModel> logger,
             IEmailSender emailSender,
-            RoleManager<IdentityRole> roleManager)
+            RoleManager<IdentityRole> roleManager,
+            ApplicationDbContext _db)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
             _roleManager = roleManager;
+            db = _db;
         }
 
         [BindProperty]
@@ -100,6 +104,12 @@ namespace LTW.Areas.Identity.Pages.Account
         {
             returnUrl ??= Url.Content("~/");
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+
+            if (db.ApplicationUsers.FirstOrDefault(x => x.Email == Input.Email) != null)
+            { // Unique Email.
+                ModelState.AddModelError("Input.Email", "Email is already exists.");
+            }
+
             if (ModelState.IsValid)
             {
                 var user = CreateUser();
