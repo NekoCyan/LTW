@@ -27,7 +27,7 @@ namespace LTW.Areas.Customer.Controllers
 
             return View(products);
         }
-        
+
         [HttpGet]
         public IActionResult Details(int productId)
         {
@@ -75,7 +75,7 @@ namespace LTW.Areas.Customer.Controllers
                 {
                     productCheck.Quantity += cart.Quantity;
                 }
-                
+
                 _db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -123,6 +123,32 @@ namespace LTW.Areas.Customer.Controllers
             {
                 return RedirectToAction("Details", new { productId = products[index - 1].Id });
             }
+        }
+
+        [HttpGet]
+        public IActionResult Index(string selectedValue = "0", string search = "")
+        {
+            int categoryId = int.Parse(selectedValue);
+
+            IEnumerable<Product> products = _db.Products.Include("Category");
+
+            if (categoryId != 0)
+            {
+                products = products.Where(x => x.CategoryId == categoryId);
+            }
+
+            if (!string.IsNullOrWhiteSpace(search))
+            {
+                products = products.Where(x => x.Name.ToLower().Contains(search.ToLower()));
+            }
+
+            products = products.ToList().ConvertAll(x =>
+            {
+                x.ImageParser();
+                return x;
+            });
+
+            return View(products);
         }
     }
 }

@@ -30,9 +30,9 @@
             <div class="row">
                 <div class="col-lg-7 col-md-7">
                     <div class="shop__option__search">
-                        <form action="#">
+                        <form method="get" asp-action="Index">
                             <vc:category></vc:category>
-                            <input type="text" placeholder="Search">
+                            <input name="search" type="text" placeholder="Search">
                             <button type="submit"><i class="fa fa-search"></i></button>
                         </form>
                     </div>
@@ -73,22 +73,48 @@
             }
         </div>
         @* <div class="shop__last__option">
-            <div class="row">
-                <div class="col-lg-6 col-md-6 col-sm-6">
-                    <div class="shop__pagination">
-                        <a href="#">1</a>
-                        <a href="#">2</a>
-                        <a href="#">3</a>
-                        <a href="#"><span class="arrow_carrot-right"></span></a>
-                    </div>
-                </div>
-                <div class="col-lg-6 col-md-6 col-sm-6">
-                    <div class="shop__last__text">
-                        <p>Showing 1-9 of 10 results</p>
-                    </div>
-                </div>
-            </div>
+        <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="shop__pagination">
+        <a href="#">1</a>
+        <a href="#">2</a>
+        <a href="#">3</a>
+        <a href="#"><span class="arrow_carrot-right"></span></a>
+        </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="shop__last__text">
+        <p>Showing 1-9 of 10 results</p>
+        </div>
+        </div>
+        </div>
         </div> *@
     </div>
 </section>
 <!-- Shop Section End -->
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            // Get the value of the 'selectedValue' query parameter from the URL
+            let Params = new URLSearchParams(window.location.search);
+            let search = Params.get('search');
+            let selectedValue = Params.get('selectedValue');
+            // Set the selected value in the Nice Select dropdown
+            if (search)
+                $('input[name="search"]').val(search);
+            if (selectedValue && selectedValue != 0 && selectedValue != "0") {
+                $('.nice-select .option').each(function () {
+                    if ($(this).data('value') == selectedValue) {
+                        // Remove the "selected" class from all options 
+                        $('.nice-select .option').removeClass('selected');
+                        // Add the "selected" class to the desired option
+                        $('.nice-select .current').text($(this).text());
+                        // Update the current value
+                        $(this).addClass('selected');
+                        return false; // Stop the loop
+                    }
+                });
+            }
+        });
+    </script>
+}
